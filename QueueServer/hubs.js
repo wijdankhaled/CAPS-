@@ -46,11 +46,8 @@ capsNamespace.on('connection', (socket) => {
        orderID: ${payload.orderId},
        customer: ${payload.customer},
        address: ${payload.address}`)
-
-
     
   })
-
 
   socket.on('delivered', (payload) => {
 
@@ -66,10 +63,8 @@ capsNamespace.on('connection', (socket) => {
     capsNamespace.emit("delivered", payload)
 
   })
-
   socket.on('received', id => {
     delete messageQueue.Queue[id];
   });
-
 
 })
