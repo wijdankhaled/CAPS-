@@ -1,27 +1,35 @@
 "use strict";
+require("dotenv").config()
+const io =require('socket.io-client')
+const host= 'http://localhost:3000/caps'
+const connectioncapsNameSpace=io.connect(host)
 
-require("dotenv").config();
 const faker = require("faker");
-const event = require('../event-pool');
 
-event.on("delivered", (payload) => {
-  console.log(`VENDOR: Thank you for delivering  ${payload.Address.zipcode}`);
-  console.log(`EVENT { event: 'delivered',
-  time: 2020-03-06T18:27:20.736Z,
-  payload:
-   { store: ${process.env.storeName},
-     orderID: ${payload.Address.zipcode},
-     customer: ${payload.customer},
-     address: ${payload.Address.city + payload.Address.state} }}`);
-});
+connectioncapsNameSpace.on("delivered",(payload)=>{
+  console.log(`VENDOR: Thank you for delivering  ${payload.orderId}`);
+  // console.log(`EVENT { event: 'delivered',
+  // time:${new Date().toString()},
+  // payload:
+  //  { store: ${process.env.STORE_NAME},
+  //    orderID: ${payload.orderId},
+  //    customer: ${payload.customer},
+  //    address: ${payload.address}`);
 
-setInterval(() => {
-  let order = {
-    customer: faker.name.findName(),
-    Email: faker.internet.email(),
-    Address: faker.helpers.createCard().address,
-    Phone: faker.helpers.createCard().phone,
-  };
-  event.emit("pickup", order);
-}, 5000); //5 seconds
+})
+
+
+setInterval(()=>{
+
+    let order={
+        store:process.env.STORE_NAME,
+        orderId:faker.datatype.uuid(),
+        customer:faker.name.findName(),
+        address:faker.address.streetAddress(),
+       
+    }
+    connectioncapsNameSpace.emit('pickup',order)
+    
+
+},5000)
 
