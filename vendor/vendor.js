@@ -8,13 +8,13 @@ const faker = require("faker");
 
 connectioncapsNameSpace.on("delivered",(payload)=>{
   console.log(`VENDOR: Thank you for delivering  ${payload.orderId}`);
-  console.log(`EVENT { event: 'delivered',
-  time:${new Date().toString()},
-  payload:
-   { store: ${process.env.STORE_NAME},
-     orderID: ${payload.orderId},
-     customer: ${payload.customer},
-     address: ${payload.address}`);
+  // console.log(`EVENT { event: 'delivered',
+  // time:${new Date().toString()},
+  // payload:
+  //  { store: ${process.env.STORE_NAME},
+  //    orderID: ${payload.orderId},
+  //    customer: ${payload.customer},
+  //    address: ${payload.address}`);
 
 })
 

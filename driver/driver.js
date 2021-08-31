@@ -9,13 +9,13 @@ const connectioncapsNamespace=io.connect(host)
 connectioncapsNamespace.on("pickup", pickUpOrder);
 
 function pickUpOrder(payload) {
-  console.log(`EVENT { event: 'pickup',
-    time: 2020-03-06T18:27:17.732Z,
-    payload:
-     { store: ${process.env.STORE_NAME},
-       orderID: ${payload.orderId},
-       customer: ${payload.customer},
-       address: ${payload.address} }}`);
+  // console.log(`EVENT { event: 'pickup',
+  //   time: 2020-03-06T18:27:17.732Z,
+  //   payload:
+  //    { store: ${process.env.STORE_NAME},
+  //      orderID: ${payload.orderId},
+  //      customer: ${payload.customer},
+  //      address: ${payload.address} }}`);
        console.log(`Driver: picked up ${payload.orderId}`);
   setTimeout(() => {
     connectioncapsNamespace.emit("in-transit", payload);
